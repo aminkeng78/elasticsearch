@@ -1,0 +1,18 @@
+Day 1
+Getting Started: https://d.pr/v/uk5h6j
+Backing up the Appliance: https://d.pr/v/WoE8zV
+Add a Cloud: https://d.pr/v/EDu2Mh
+Agent and Discovery: https://d.pr/v/b0mF6M
+Users and Roles: https://d.pr/v/eFclyW
+Policies: https://d.pr/v/dMuqCb
+Tenants: https://d.pr/v/Bqrrfn
+Custom Instance Types: https://d.pr/v/giX9Q5
+ 
+Day 2
+Automation: https://d.pr/v/5hmv1h
+Working with Blueprints: https://d.pr/v/kBmYoh
+Monitoring: https://d.pr/v/rVPUvE
+Self Service: https://d.pr/v/NO4x7r
+Git Integration: https://d.pr/v/MyancE
+Ansible: https://d.pr/v/HooNEr
+Morpheus CLI: https://d.pr/v/3onmHz
