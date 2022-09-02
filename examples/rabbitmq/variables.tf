@@ -1,12 +1,15 @@
-variable "region" {
+
+variable "vpc_id" {
   type        = string
-  description = "AWS region"
+  description = ""
+  default     = "vpc-7e3a0c1a"
 }
 
-variable "availability_zones" {
-  type        = list(string)
-  description = "List of Availability Zones"
+variable "subnet_id" {
+  type    = list(any)
+  default = []
 }
+
 
 variable "apply_immediately" {
   type        = bool
@@ -22,31 +25,32 @@ variable "auto_minor_version_upgrade" {
 
 variable "deployment_mode" {
   type        = string
-  default     = "ACTIVE_STANDBY_MULTI_AZ"
-  description = "The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ"
+  default     = "CLUSTER_MULTI_AZ" #"ACTIVE_STANDBY_MULTI_AZ"
+  description = "The deployment mode of the broker. Supported: SINGLE_INSTANCE, CLUSTER_MULTI_AZ and ACTIVE_STANDBY_MULTI_AZ"
 }
 
 variable "engine_type" {
   type        = string
-  default     = "ActiveMQ"
+  default     = "RabbitMQ"
   description = "Type of broker engine, `ActiveMQ` or `RabbitMQ`"
 }
 
 variable "engine_version" {
   type        = string
-  default     = "5.15.14"
-  description = "The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html for more details"
+  default     = "3.9.13"
+  description = "The version of the broker engine"
 }
+
 
 variable "host_instance_type" {
   type        = string
-  default     = "mq.t3.micro"
-  description = "The broker's instance type. e.g. mq.t2.micro or mq.m4.large"
+  default     = "mq.m5.2xlarge"
+  description = "The broker's instance type. e.g. mq.t2.micro,mq.m4.large or mq.m5.2xlarge"
 }
 
 variable "publicly_accessible" {
   type        = bool
-  default     = false
+  default     = false     #true
   description = "Whether to enable connections from applications outside of the VPC that hosts the broker's subnets"
 }
 

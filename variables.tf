@@ -12,31 +12,31 @@ variable "auto_minor_version_upgrade" {
 
 variable "deployment_mode" {
   type        = string
-  default     = "ACTIVE_STANDBY_MULTI_AZ"
-  description = "The deployment mode of the broker. Supported: SINGLE_INSTANCE and ACTIVE_STANDBY_MULTI_AZ"
+  default     = "CLUSTER_MULTI_AZ" #"ACTIVE_STANDBY_MULTI_AZ"
+  description = "The deployment mode of the broker. Supported: SINGLE_INSTANCE,  and ACTIVE_STANDBY_MULTI_AZ"
 }
 
 variable "engine_type" {
   type        = string
-  default     = "ActiveMQ"
+  default     = "RabbitMQ"
   description = "Type of broker engine, `ActiveMQ` or `RabbitMQ`"
 }
 
 variable "engine_version" {
   type        = string
-  default     = "5.15.14"
-  description = "The version of the broker engine. See https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html for more details"
+  default     = "3.9.13"
+  description = "The version of the broker engine"
 }
 
 variable "host_instance_type" {
   type        = string
-  default     = "mq.t3.micro"
+  default     = "mq.m5.2xlarge"
   description = "The broker's instance type. e.g. mq.t2.micro or mq.m4.large"
 }
 
 variable "publicly_accessible" {
   type        = bool
-  default     = false
+  default     = false #true
   description = "Whether to enable connections from applications outside of the VPC that hosts the broker's subnets"
 }
 
@@ -97,7 +97,7 @@ variable "mq_application_password" {
 variable "security_group_enabled" {
   type        = bool
   description = "Whether to create Security Group."
-  default     = true
+  default     = false
 }
 
 variable "security_group_description" {
@@ -112,23 +112,13 @@ variable "security_group_use_name_prefix" {
   description = "Whether to create a default Security Group with unique name beginning with the normalized prefix."
 }
 
-variable "security_group_rules" {
-  type = list(any)
-  default = [
-    {
-      type        = "egress"
-      from_port   = 0
-      to_port     = 65535
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "Allow all outbound traffic"
-    }
-  ]
-  description = <<-EOT
-    A list of maps of Security Group rules. 
-    The values of map is fully complated with `aws_security_group_rule` resource. 
-    To get more info see https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule .
-  EOT
+variable "compunent_name" {
+  default = "shi_mq"
+}
+
+variable "enable" {
+  type        = bool
+  default     = true
 }
 
 variable "security_groups" {
@@ -137,14 +127,10 @@ variable "security_groups" {
   default     = []
 }
 
-variable "vpc_id" {
-  type        = string
-  description = "VPC ID to create the broker in"
-}
-
 variable "subnet_ids" {
   type        = list(string)
   description = "List of VPC subnet IDs"
+  default = []
 }
 
 variable "overwrite_ssm_parameter" {
@@ -153,17 +139,6 @@ variable "overwrite_ssm_parameter" {
   description = "Whether to overwrite an existing SSM parameter"
 }
 
-variable "ssm_parameter_name_format" {
-  type        = string
-  default     = "/%s/%s"
-  description = "SSM parameter name format"
-}
-
-variable "ssm_path" {
-  type        = string
-  default     = "mq"
-  description = "SSM path"
-}
 
 variable "kms_ssm_key_arn" {
   type        = string
@@ -173,7 +148,7 @@ variable "kms_ssm_key_arn" {
 
 variable "encryption_enabled" {
   type        = bool
-  default     = true
+  default     = false         #true
   description = "Flag to enable/disable Amazon MQ encryption at rest"
 }
 
